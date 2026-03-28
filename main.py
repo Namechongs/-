@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(level
 logger = logging.getLogger(__name__)
 
 client = OpenAI(
-     api_key="此处换成你自己的deepseek API",
+     api_key="此处换成你自己的deepseek KEY",
      base_url="https://api.deepseek.com"
 )
 
