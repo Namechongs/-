@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from main_ui import Ui_MainWindow
+from validation import validate_formula
 from openai import OpenAI
 from datetime import datetime
 import json
@@ -293,6 +294,11 @@ class MainWindow(QMainWindow):
     def on_execute(self):       #开始执行按钮的函数
         try:
             data = json.loads(self.ui.json_text.toPlainText())
+            # 进行结构化校验，若校验失败则直接弹窗并中止执行
+            ok, errors = validate_formula(data)
+            if not ok:
+                QMessageBox.warning(self, "校验失败", "\n".join(errors))
+                return
             plans = data['plans']
         except:
             QMessageBox.warning(self, "错误", "请先点击生成配方")
